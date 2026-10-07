@@ -11,10 +11,26 @@ jobs:
 
     steps:
       - name: Checkout code from Git
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
-      - name: Install GCC
-        run: sudo apt-get install -y g++
+      - name: Install tools
+        run: sudo apt-get install -y g++ cppcheck clang-tidy
+
+      - name: stylecheck
+        run: cppcheck --enable=style,warning,performance --error-exitcode=1 main.cpp
+
+      - name: clang-tidy
+        run:  clang-tidy main.cpp -checks='bugprone-*,performance-*,readability-*,modernize-*' -warnings-as-errors='*' -- -std=c++17
 
       - name: Build
         run: g++ main.cpp -o programm -Wall
+
+      - name: Test
+        run: |
+          OUTPUT=$(./programm)
+          if [ "$OUTPUT" = "Hello" ]; then
+            echo "Test bestanden"
+          else
+            echo "Test fehlgeschlagen: '$OUTPUT'"
+            exit 1
+          fi
