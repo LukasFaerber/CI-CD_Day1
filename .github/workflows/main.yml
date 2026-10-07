@@ -28,7 +28,7 @@ jobs:
       - name: Test
         run: |
           OUTPUT=$(./programm)
-          if [ "$OUTPUT" = "Hello" ]; then
+          if [ "$OUTPUT" = "Hello World! further text" ]; then
             echo "Test bestanden"
           else
             echo "Test fehlgeschlagen: '$OUTPUT'"
