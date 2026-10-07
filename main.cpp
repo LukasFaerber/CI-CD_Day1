@@ -4,7 +4,10 @@ using namespace std;
 
 int main() 
 {
-    cout << "Hello World!" << '\n';
-    cout << "further text" << '\n';
+    if (true)
+    {
+        cout << "Hello World!" << '\n';
+        cout << "further text" << '\n';
+    }
     return 0;
 }
